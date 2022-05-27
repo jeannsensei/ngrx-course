@@ -12,6 +12,7 @@ import { EffectsModule } from "@ngrx/effects";
 import * as fromAuth from "./reducers";
 import { AuthGuard } from "./auth.guard";
 import { LogoutGuard } from "./logout.guard";
+import { AuthEffects } from "./auth.effects";
 
 @NgModule({
   imports: [
@@ -22,9 +23,10 @@ import { LogoutGuard } from "./logout.guard";
     MatButtonModule,
     RouterModule.forChild([
       { path: "", component: LoginComponent },
-      { path: "logout", component: LoginComponent, canActivate: [LogoutGuard] },
+      // { path: "logout", component: LoginComponent, canActivate: [LogoutGuard] },
     ]),
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.authReducer),
+    EffectsModule.forFeature([AuthEffects]),
   ],
   declarations: [LoginComponent],
   exports: [LoginComponent],
@@ -33,7 +35,7 @@ export class AuthModule {
   static forRoot(): ModuleWithProviders<AuthModule> {
     return {
       ngModule: AuthModule,
-      providers: [AuthService, AuthGuard, LogoutGuard],
+      providers: [AuthService, AuthGuard],
     };
   }
 }
