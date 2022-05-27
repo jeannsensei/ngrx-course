@@ -59,6 +59,10 @@ const routes: Routes = [
     }),
     EntityDataModule.forRoot(entityConfig),
     EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: "router",
+      routerState: RouterState.Minimal,
+    }),
   ],
   bootstrap: [AppComponent],
 })
