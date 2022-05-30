@@ -21,6 +21,9 @@ export const coursesReducer = createReducer(
   on(CourseActions.allCoursesLoaded, (state, action) => {
     // is not addAll
     return adapter.setAll(action.courses, { ...state, allCoursesLoaded: true });
+  }),
+  on(CourseActions.courseUpdated, (state, action) => {
+    return adapter.updateOne(action.update, state);
   })
 );
 
