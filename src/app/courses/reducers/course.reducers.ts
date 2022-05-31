@@ -9,7 +9,7 @@ export interface CoursesState extends EntityState<Course> {
 
 export const adapter = createEntityAdapter<Course>({
   sortComparer: compareCourses,
-  selectId: (course) => course.id, // not needed if the object has an id prop already
+  // selectId: (course) => course.id, // not needed if the object has an id prop already
 });
 
 export const initialCoursesState = adapter.getInitialState({
@@ -20,7 +20,10 @@ export const coursesReducer = createReducer(
   initialCoursesState,
   on(CourseActions.allCoursesLoaded, (state, action) => {
     // is not addAll
-    return adapter.setAll(action.courses, { ...state, allCoursesLoaded: true });
+    return adapter.setAll(action.courses, {
+      ...state,
+      allCoursesLoaded: true,
+    });
   }),
   on(CourseActions.courseUpdated, (state, action) => {
     return adapter.updateOne(action.update, state);
